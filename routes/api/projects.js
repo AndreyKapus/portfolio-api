@@ -1,5 +1,6 @@
 const express = require("express");
 const projects = require("../../data/projects/projects");
+const { v4 } = require("uuid");
 
 const router = express.Router();
 
@@ -29,6 +30,18 @@ router.get("/:id", (req, res) => {
     code: 200,
     data: {
       result,
+    },
+  });
+});
+
+router.post("/", (req, res) => {
+  const newProject = { ...req.body, id: v4() };
+  projects.push(newProject);
+  res.status(201).json({
+    status: "success",
+    code: 201,
+    data: {
+      result: newProject,
     },
   });
 });
