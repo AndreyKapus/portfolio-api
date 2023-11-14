@@ -1,17 +1,25 @@
 const express = require("express");
-const projects = require("../../data/projects/projects");
+const projects = require("../../data/projects");
 const { v4 } = require("uuid");
 
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.json({
-    status: "success",
-    code: 200,
-    data: {
-      result: projects,
-    },
-  });
+  try {
+    res.json({
+      status: "success",
+      code: 200,
+      data: {
+        result: projects,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      code: 500,
+      message: "server error",
+    });
+  }
 });
 
 router.get("/:id", (req, res) => {

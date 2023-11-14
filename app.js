@@ -2,14 +2,15 @@ const express = require("express");
 const fs = require("fs").promises;
 const moment = require("moment");
 const cors = require("cors");
-const projectRouter = require("./routes/api/projects");
+
+const projectsRouter = require("./routes/api/projects");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/projects", projectRouter);
+app.use("/api/projects", projectsRouter);
 
 app.use(async (req, res, next) => {
   const { method, url } = req;
