@@ -2,8 +2,15 @@ const express = require("express");
 const projects = require("../../models/projects");
 const { v4 } = require("uuid");
 const { HttpError } = require("../../helpers");
+const Joi = require("joi");
 
 const router = express.Router();
+
+const addSchema = Joi.object({
+  name: Joi.string().required(),
+  techs: Joi.string().required(),
+  descr: Joi.string().required(),
+});
 
 router.get("/", async (req, res, next) => {
   try {
@@ -39,16 +46,23 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/", (req, res) => {
-  const newProject = { ...req.body, id: v4() };
-  projects.push(newProject);
-  res.status(201).json({
-    status: "success",
-    code: 201,
-    data: {
-      result: newProject,
-    },
-  });
+router.post("/", async (req, res, next) => {
+  try {
+    const { error } = addSchema.validate(req.body);
+    if (error) {
+      throw HttpError(400, error.message);
+    }
+    const result = await projects.addProject(req.body);
+    res.status(201).json({
+      status: "success",
+      code: 201,
+      data: {
+        result: result,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
