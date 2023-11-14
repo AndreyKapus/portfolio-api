@@ -1,13 +1,11 @@
 const fs = require("fs/promises");
 const path = require("path");
-const { all } = require("../../routes/api/projects");
 const { v4 } = require("uuid");
 
 const projectsPath = path.join(__dirname, "projects.json");
 
 const getAll = async () => {
   const data = await fs.readFile(projectsPath, "utf-8");
-  console.log(data);
   return JSON.parse(data);
 };
 
@@ -41,8 +39,22 @@ const updateById = async (id, data) => {
   return allProjects[index];
 };
 
+const deleteById = async (id) => {
+  const allProjects = await getAll();
+  const index = allProjects.findIndex((item) => item.id === id);
+  if (index === -1) {
+    return null;
+  }
+
+  const [result] = allProjects.splice(index, 1);
+  await fs.writeFile(projectsPath, JSON.stringify(allProjects, null, 2));
+  return result;
+};
+
 module.exports = {
   getAll,
   getById,
   addProject,
+  updateById,
+  deleteById,
 };

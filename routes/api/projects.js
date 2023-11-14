@@ -1,57 +1,54 @@
-// const express = require("express");
-// const projects = require("../../data/projects");
-// const { v4 } = require("uuid");
+const express = require("express");
+const projects = require("../../models/projects");
+const { v4 } = require("uuid");
+const { HttpError } = require("../../helpers");
 
-// const router = express.Router();
+const router = express.Router();
 
-// router.get("/", (req, res) => {
-//   try {
-//     res.json({
-//       status: "success",
-//       code: 200,
-//       data: {
-//         result: projects,
-//       },
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       status: "error",
-//       code: 500,
-//       message: "server error",
-//     });
-//   }
-// });
+router.get("/", async (req, res, next) => {
+  try {
+    const result = await projects.getAll();
+    res.json({
+      status: "success",
+      code: 200,
+      data: {
+        result: result,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
-// router.get("/:id", (req, res) => {
-//   const { id } = req.params;
-//   const result = projects.find((item) => item.id === id);
-//   if (!result) {
-//     res.status(404).json({
-//       status: "error",
-//       code: 404,
-//       message: `project with id: ${id} not found`,
-//     });
-//   }
+router.get("/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await projects.getById(id);
+    if (!result) {
+      throw HttpError(404, "Not found");
+    }
+    res.json({
+      status: "success",
+      code: 200,
+      data: {
+        result,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
-//   res.json({
-//     status: "success",
-//     code: 200,
-//     data: {
-//       result,
-//     },
-//   });
-// });
+router.post("/", (req, res) => {
+  const newProject = { ...req.body, id: v4() };
+  projects.push(newProject);
+  res.status(201).json({
+    status: "success",
+    code: 201,
+    data: {
+      result: newProject,
+    },
+  });
+});
 
-// router.post("/", (req, res) => {
-//   const newProject = { ...req.body, id: v4() };
-//   projects.push(newProject);
-//   res.status(201).json({
-//     status: "success",
-//     code: 201,
-//     data: {
-//       result: newProject,
-//     },
-//   });
-// });
-
-// module.exports = router;
+module.exports = router;

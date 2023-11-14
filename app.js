@@ -3,14 +3,14 @@ const fs = require("fs").promises;
 const moment = require("moment");
 const cors = require("cors");
 
-// const projectsRouter = require("./routes/api/projects");
+const projectsRouter = require("./routes/api/projects");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// app.use("/api/projects", projectsRouter);
+app.use("/api/projects", projectsRouter);
 
 app.use(async (req, res, next) => {
   const { method, url } = req;
@@ -25,4 +25,11 @@ app.get("/", (req, res) => {
 
 app.listen(3001, () => {
   console.log("Example app listening on port 3001!");
+});
+
+app.use((err, req, res, next) => {
+  const { status = 500, message = "Server error" } = err;
+  res.status(status).json({
+    message,
+  });
 });
