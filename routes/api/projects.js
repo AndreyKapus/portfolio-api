@@ -65,4 +65,42 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.put("/:id", async (req, res, next) => {
+  try {
+    const { error } = addSchema.validate(req.body);
+    if (error) {
+      throw HttpError(400, error.message);
+    }
+    const { id } = req.params;
+    const result = await projects.updateById(id, req.body);
+    if (!result) {
+      throw HttpError(404, "Not found");
+    }
+    res.json({
+      status: "success",
+      code: 200,
+      data: {
+        result,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await projects.deleteById(id);
+    if (!result) {
+      throw HttpError(404, "Not found");
+    }
+    res.json({
+      message: "Deleted",
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

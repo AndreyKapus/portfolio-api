@@ -13,3 +13,5 @@ GET /api/projects 14-11-2023_04:49:18
 GET /api/projects 14-11-2023_04:50:59
 GET /api/projects 14-11-2023_04:51:08
 GET /api/projectsf 14-11-2023_05:15:02
+PUT /api/projects/85d5d775-2d10-4b7b-91f6-651c6b4997f5 15-11-2023_10:38:12
+PUT /api/projects/85d5d775-2d10-4b7b-91f6-651c6b4997f5 15-11-2023_10:38:42
