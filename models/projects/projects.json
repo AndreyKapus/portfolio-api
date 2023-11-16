@@ -10,5 +10,17 @@
     "name": "Filmoteka",
     "techs": "HTML, SASS, responsive design, JS, Axios, REST Api, parcel",
     "descr": "Application to create your own movie library. Team project"
+  },
+  {
+    "id": "4353",
+    "name": "Web studio",
+    "techs": "HTML, SASS, responsive design, Js",
+    "descr": "Application to create your own movie library."
+  },
+  {
+    "id": "734534",
+    "name": "Ice cream",
+    "techs": "HTML, SASS, responsive design, JS, parcel",
+    "descr": "Application to create your own movie library. Team project"
   }
 ]
