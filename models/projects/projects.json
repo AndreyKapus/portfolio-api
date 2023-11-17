@@ -22,5 +22,11 @@
     "name": "Ice cream",
     "techs": "HTML, SASS, responsive design, JS, parcel",
     "descr": "Application to create your own movie library. Team project"
+  },
+  {
+    "id": "73434",
+    "name": "Revies",
+    "techs": "HTML, SASS, responsive design, JS, parcel, React",
+    "descr": "Application to create your own movie library. Team project"
   }
 ]
