@@ -5,26 +5,5 @@
     "name": "Petly",
     "techs": "HTML, SASS, React, Redux, Node.JS, Axios, responsive design, REST Api, Webpack",
     "descr": "An app for easy search, purchase, or sale pets. Team project"
-  },
-  {
-    "id": "76653",
-    "img": "",
-    "name": "Filmoteka",
-    "techs": "HTML, SASS, responsive design, JS, Axios, REST Api, parcel",
-    "descr": "Application to create your own movie library. Team project"
-  },
-  {
-    "id": "4353",
-    "img": "",
-    "name": "Web studio",
-    "techs": "HTML, SASS, responsive design, Js",
-    "descr": "Application to create your own movie library."
-  },
-  {
-    "id": "734534",
-    "img": "",
-    "name": "Ice cream",
-    "techs": "HTML, SASS, responsive design, JS, parcel",
-    "descr": "Application to create your own movie library. Team project"
   }
 ]
