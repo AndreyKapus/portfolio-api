@@ -2,8 +2,13 @@ const express = require("express");
 const fs = require("fs").promises;
 const moment = require("moment");
 const cors = require("cors");
+const dotenv = require("dotenv");
 
 const projectsRouter = require("./routes/api/projects");
+
+dotenv.config();
+
+dotenv.config();
 
 const app = express();
 
