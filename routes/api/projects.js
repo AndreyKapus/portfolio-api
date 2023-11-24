@@ -11,7 +11,7 @@ router.get("/", ctrl.getAll);
 
 // router.get("/:id", ctrl.getById);
 
-// router.post("/", validateBody(schemas.addSchema), ctrl.add);
+router.post("/", validateBody(schemas.addSchema), ctrl.add);
 
 // router.put("/:id", validateBody(schemas.addSchema), ctrl.updateById);
 

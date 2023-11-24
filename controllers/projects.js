@@ -22,20 +22,20 @@ const getAll = async (req, res, next) => {
 //   });
 // };
 
-// const add = async (req, res, next) => {
-//   //   const { error } = addSchema.validate(req.body);
-//   //   if (error) {
-//   //     throw HttpError(400, error.message);
-//   //   }
-//   const result = await projects.addProject(req.body);
-//   res.status(201).json({
-//     status: "success",
-//     code: 201,
-//     data: {
-//       result: result,
-//     },
-//   });
-// };
+const add = async (req, res, next) => {
+  //   const { error } = addSchema.validate(req.body);
+  //   if (error) {
+  //     throw HttpError(400, error.message);
+  //   }
+  const result = await Project.create(req.body);
+  res.status(201).json({
+    status: "success",
+    code: 201,
+    data: {
+      result: result,
+    },
+  });
+};
 
 // const updateById = async (req, res, next) => {
 //   //   const { error } = addSchema.validate(req.body);
@@ -70,7 +70,7 @@ const getAll = async (req, res, next) => {
 module.exports = {
   getAll: ctrlWrapper(getAll),
   // getById: ctrlWrapper(getById),
-  // add: ctrlWrapper(add),
+  add: ctrlWrapper(add),
   // updateById: ctrlWrapper(updateById),
   // deleteById: ctrlWrapper(deleteById),
 };
