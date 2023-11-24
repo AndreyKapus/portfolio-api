@@ -3,8 +3,7 @@ const app = require("./app");
 
 //1GIoUHhuEW82MTIV
 
-const DB_HOST =
-  "mongodb+srv://andriik:1GIoUHhuEW82MTIV@cluster0.iutekrl.mongodb.net/portfolio-api";
+const { DB_HOST } = process.env;
 
 mongoose.set("strictQuery", true);
 
