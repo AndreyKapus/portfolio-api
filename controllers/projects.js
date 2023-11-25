@@ -7,20 +7,20 @@ const getAll = async (req, res, next) => {
   res.json(result);
 };
 
-// const getById = async (req, res, next) => {
-//   const { id } = req.params;
-//   const result = await projects.getById(id);
-//   if (!result) {
-//     throw HttpError(404, "Not found");
-//   }
-//   res.json({
-//     status: "success",
-//     code: 200,
-//     data: {
-//       result,
-//     },
-//   });
-// };
+const getById = async (req, res, next) => {
+  const { id } = req.params;
+  const result = await Project.findById(id);
+  if (!result) {
+    throw HttpError(404, "Not found");
+  }
+  res.json({
+    status: "success",
+    code: 200,
+    data: {
+      result,
+    },
+  });
+};
 
 const add = async (req, res, next) => {
   const { error } = addSchema.validate(req.body);
@@ -69,7 +69,7 @@ const add = async (req, res, next) => {
 
 module.exports = {
   getAll: ctrlWrapper(getAll),
-  // getById: ctrlWrapper(getById),
+  getById: ctrlWrapper(getById),
   add: ctrlWrapper(add),
   // updateById: ctrlWrapper(updateById),
   // deleteById: ctrlWrapper(deleteById),
