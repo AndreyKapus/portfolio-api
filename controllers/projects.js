@@ -37,24 +37,24 @@ const add = async (req, res, next) => {
   });
 };
 
-// const updateById = async (req, res, next) => {
-//   //   const { error } = addSchema.validate(req.body);
-//   //   if (error) {
-//   //     throw HttpError(400, error.message);
-//   //   }
-//   const { id } = req.params;
-//   const result = await projects.updateById(id, req.body);
-//   if (!result) {
-//     throw HttpError(404, "Not found");
-//   }
-//   res.json({
-//     status: "success",
-//     code: 200,
-//     data: {
-//       result,
-//     },
-//   });
-// };
+const updateById = async (req, res, next) => {
+  //   const { error } = addSchema.validate(req.body);
+  //   if (error) {
+  //     throw HttpError(400, error.message);
+  //   }
+  const { id } = req.params;
+  const result = await Project.findByIdAndUpdate(id, req.body, { new: true });
+  if (!result) {
+    throw HttpError(404, "Not found");
+  }
+  res.json({
+    status: "success",
+    code: 200,
+    data: {
+      result,
+    },
+  });
+};
 
 // const deleteById = async (req, res, next) => {
 //   const { id } = req.params;
@@ -71,6 +71,6 @@ module.exports = {
   getAll: ctrlWrapper(getAll),
   getById: ctrlWrapper(getById),
   add: ctrlWrapper(add),
-  // updateById: ctrlWrapper(updateById),
+  updateById: ctrlWrapper(updateById),
   // deleteById: ctrlWrapper(deleteById),
 };
