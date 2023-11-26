@@ -23,10 +23,10 @@ const getById = async (req, res, next) => {
 };
 
 const add = async (req, res, next) => {
-  const { error } = addSchema.validate(req.body);
-  if (error) {
-    throw HttpError(400, error.message);
-  }
+  // const { error } = addSchema.validate(req.body);
+  // if (error) {
+  //   throw HttpError(400, error.message);
+  // }
   const result = await Project.create(req.body);
   res.status(201).json({
     status: "success",
@@ -56,21 +56,21 @@ const updateById = async (req, res, next) => {
   });
 };
 
-// const deleteById = async (req, res, next) => {
-//   const { id } = req.params;
-//   const result = await projects.deleteById(id);
-//   if (!result) {
-//     throw HttpError(404, "Not found");
-//   }
-//   res.json({
-//     message: "Deleted",
-//   });
-// };
+const deleteById = async (req, res, next) => {
+  const { id } = req.params;
+  const result = await Project.findByIdAndDelete(id);
+  if (!result) {
+    throw HttpError(404, "Not found");
+  }
+  res.json({
+    message: "Deleted",
+  });
+};
 
 module.exports = {
   getAll: ctrlWrapper(getAll),
   getById: ctrlWrapper(getById),
   add: ctrlWrapper(add),
   updateById: ctrlWrapper(updateById),
-  // deleteById: ctrlWrapper(deleteById),
+  deleteById: ctrlWrapper(deleteById),
 };
