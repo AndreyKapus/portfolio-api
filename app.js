@@ -4,6 +4,7 @@ const moment = require("moment");
 const cors = require("cors");
 const dotenv = require("dotenv");
 
+const authRouter = require("./routes/api/auth");
 const projectsRouter = require("./routes/api/projects");
 
 dotenv.config();
@@ -15,6 +16,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use("/api/auth", authRouter);
 app.use("/api/projects", projectsRouter);
 
 app.use(async (req, res, next) => {
