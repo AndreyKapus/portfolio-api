@@ -23,10 +23,6 @@ const getById = async (req, res, next) => {
 };
 
 const add = async (req, res, next) => {
-  // const { error } = addSchema.validate(req.body);
-  // if (error) {
-  //   throw HttpError(400, error.message);
-  // }
   const result = await Project.create(req.body);
   res.status(201).json({
     status: "success",
@@ -38,10 +34,6 @@ const add = async (req, res, next) => {
 };
 
 const updateById = async (req, res, next) => {
-  //   const { error } = addSchema.validate(req.body);
-  //   if (error) {
-  //     throw HttpError(400, error.message);
-  //   }
   const { id } = req.params;
   const result = await Project.findByIdAndUpdate(id, req.body, { new: true });
   if (!result) {
