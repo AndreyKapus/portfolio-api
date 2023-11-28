@@ -3,7 +3,9 @@ const { v4 } = require("uuid");
 const { HttpError, ctrlWrapper } = require("../helpers");
 
 const getAll = async (req, res, next) => {
-  const result = await Project.find();
+  const { page = 1, limit = 10 } = req.query;
+  const skip = (page - 1) * limit;
+  const result = await Project.find({}, "-createAt -updateAt", { skip, limit });
   res.json(result);
 };
 
