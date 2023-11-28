@@ -2,18 +2,18 @@ const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
 const Joi = require("joi");
 
-const emailRegexp =
-  "/^([a-z0-9_-]+.)*[a-z0-9_-]+@[a-z0-9_-]+(.[a-z0-9_-]+)*.[a-z]{2,6}$/";
+const emailRegexp = /@/;
 
 const userSchema = new Schema(
   {
-    role: {
+    admin: {
       type: Boolean,
       require: true,
     },
     email: {
       type: String,
       match: emailRegexp,
+      unique: true,
       required: true,
     },
     password: {
@@ -29,7 +29,7 @@ const userSchema = new Schema(
 userSchema.post("save", handleMongooseError);
 
 const registerSchema = Joi.object({
-  role: Joi.boolean().required(),
+  admin: Joi.boolean().required(),
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
 });
