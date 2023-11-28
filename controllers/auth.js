@@ -1,9 +1,9 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const { User } = require("../models/users");
 const { HttpError, ctrlWrapper } = require("../helpers");
-const jwt = require("jsonwebtoken");
 
-const { SECRET_KEY } = process.env;
+const SECRET_KEY = `${process.env.SECRET_KEY}`;
 
 const register = async (req, res) => {
   const { password } = req.body;
