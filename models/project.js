@@ -23,6 +23,10 @@ const projectSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    avatarUrl: {
+      type: String,
+      required: true,
+    },
   },
   { versionKey: false, timestamps: true }
 );
