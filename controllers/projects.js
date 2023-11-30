@@ -1,6 +1,11 @@
 const Project = require("../models/project");
+const path = require("path");
+const fs = require("fs/promises");
 const { v4 } = require("uuid");
 const { HttpError, ctrlWrapper } = require("../helpers");
+const gravatar = require("gravatar");
+
+const avatarsDir = path.join(__dirname, "../", "public", "avatars");
 
 const getAll = async (req, res, next) => {
   const { page = 1, limit = 10 } = req.query;
@@ -25,7 +30,9 @@ const getById = async (req, res, next) => {
 };
 
 const add = async (req, res, next) => {
-  const result = await Project.create(req.body);
+  const avatarUrl = gravatar.url();
+
+  const result = await Project.create({ ...req.body, avatarUrl });
   res.status(201).json({
     status: "success",
     code: 201,
@@ -61,10 +68,24 @@ const deleteById = async (req, res, next) => {
   });
 };
 
+const updateAvatar = async (req, res) => {
+  const { id } = req.params;
+  const { path: tempUpload, originalname } = req.file;
+  const resultUpload = path.join(avatarsDir, originalname);
+  await fs.rename(tempUpload, resultUpload);
+  const avatarUrl = path.join("avatars", originalname);
+  await Project.findByIdAndUpdate(id, { avatarUrl });
+
+  res.json({
+    avatarUrl,
+  });
+};
+
 module.exports = {
   getAll: ctrlWrapper(getAll),
   getById: ctrlWrapper(getById),
   add: ctrlWrapper(add),
   updateById: ctrlWrapper(updateById),
   deleteById: ctrlWrapper(deleteById),
+  updateAvatar: ctrlWrapper(updateAvatar),
 };

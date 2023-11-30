@@ -1,6 +1,6 @@
 const express = require("express");
 const ctrl = require("../../controllers/projects");
-const { isValidId, authenticate } = require("../../middlewares");
+const { isValidId, authenticate, upload } = require("../../middlewares");
 
 const router = express.Router();
 const { validateBody } = require("../../middlewares");
@@ -10,7 +10,13 @@ router.get("/", ctrl.getAll);
 
 router.get("/:id", isValidId, ctrl.getById);
 
-router.post("/", authenticate, validateBody(schemas.addSchema), ctrl.add);
+router.post(
+  "/",
+  upload.single("avatar"),
+  authenticate,
+  validateBody(schemas.addSchema),
+  ctrl.add
+);
 
 router.put(
   "/:id",
@@ -18,6 +24,13 @@ router.put(
   isValidId,
   validateBody(schemas.addSchema),
   ctrl.updateById
+);
+
+router.patch(
+  "/avatars",
+  authenticate,
+  upload.single("avatar"),
+  ctrl.updateAvatar
 );
 
 router.delete("/:id", authenticate, isValidId, ctrl.deleteById);

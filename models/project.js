@@ -25,7 +25,6 @@ const projectSchema = new Schema(
     },
     avatarUrl: {
       type: String,
-      required: true,
     },
   },
   { versionKey: false, timestamps: true }
