@@ -91,5 +91,5 @@ module.exports = {
   add: ctrlWrapper(add),
   updateById: ctrlWrapper(updateById),
   deleteById: ctrlWrapper(deleteById),
-  updateAvatar: ctrlWrapper(updateAvatar),
+  updateAvatar,
 };
