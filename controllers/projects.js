@@ -69,12 +69,13 @@ const deleteById = async (req, res, next) => {
 };
 
 const updateAvatar = async (req, res) => {
-  const { id } = req.params;
+  const { _id } = req.params;
   const { path: tempUpload, originalname } = req.file;
-  const resultUpload = path.join(avatarsDir, originalname);
+  const filename = `${_id}_${originalname}`;
+  const resultUpload = path.join(avatarsDir, filename);
   await fs.rename(tempUpload, resultUpload);
-  const avatarUrl = path.join("avatars", originalname);
-  await Project.findByIdAndUpdate(id, { avatarUrl });
+  const avatarUrl = path.join("avatars", filename);
+  await Project.findByIdAndUpdate(_id, { avatarUrl });
 
   res.json({
     avatarUrl,
