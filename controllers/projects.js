@@ -5,7 +5,7 @@ const { v4 } = require("uuid");
 const { HttpError, ctrlWrapper } = require("../helpers");
 const gravatar = require("gravatar");
 
-const avatarsDir = path.join(__dirname, "../", "public", "avatars");
+const avatarsDir = path.join(__dirname, "../", "avatars");
 
 const getAll = async (req, res, next) => {
   const { page = 1, limit = 10 } = req.query;
@@ -74,7 +74,7 @@ const updateAvatar = async (req, res) => {
   const filename = `${id}_${originalname}`;
   const resultUpload = path.join(avatarsDir, filename);
   await fs.rename(tempUpload, resultUpload);
-  const avatarUrl = path.join("public", "avatars", filename);
+  const avatarUrl = path.join("avatars", filename);
   await Project.findByIdAndUpdate(id, { avatarUrl });
 
   res.json({
