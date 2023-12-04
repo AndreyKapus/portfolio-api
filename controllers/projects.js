@@ -72,17 +72,14 @@ const updateAvatar = async (req, res) => {
   const { id } = req.params;
   const { path: tempUpload, originalname } = req.file;
   const filename = `${id}_${originalname}`;
-  try {
-    const resultUpload = path.join(avatarsDir, filename);
-    await fs.rename(tempUpload, resultUpload);
-    const avatarUrl = path.join("public", "avatars", filename);
-    await Project.findByIdAndUpdate(id, { avatarUrl });
-    res.json({
-      avatarUrl,
-    });
-  } catch (error) {
-    throw error;
-  }
+  const resultUpload = path.join(avatarsDir, filename);
+  await fs.rename(tempUpload, resultUpload);
+  const avatarUrl = path.join("avatars", filename);
+  await Project.findByIdAndUpdate(id, { avatarUrl });
+
+  res.json({
+    avatarUrl,
+  });
 };
 
 module.exports = {
@@ -91,5 +88,5 @@ module.exports = {
   add: ctrlWrapper(add),
   updateById: ctrlWrapper(updateById),
   deleteById: ctrlWrapper(deleteById),
-  updateAvatar,
+  updateAvatar: ctrlWrapper(updateAvatar),
 };
