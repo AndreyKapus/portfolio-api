@@ -29,7 +29,7 @@ router.put(
 router.patch(
   "/avatars/:id",
   authenticate,
-  upload.single("avatar"),
+  upload.array("avatar", 8),
   ctrl.updateAvatar
 );
 
