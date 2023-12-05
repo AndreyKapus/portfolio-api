@@ -30,7 +30,13 @@ const getById = async (req, res, next) => {
 };
 
 const add = async (req, res, next) => {
-  const avatarUrl = gravatar.url();
+  const avatarUrl = path.join(
+    __dirname,
+    "../",
+    "public",
+    "avatars",
+    "avatar.jpg"
+  );
 
   const result = await Project.create({ ...req.body, avatarUrl });
   res.status(201).json({
