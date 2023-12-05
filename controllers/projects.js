@@ -70,7 +70,7 @@ const deleteById = async (req, res, next) => {
 
 const updateAvatar = async (req, res) => {
   const { id } = req.params;
-  const { path: tempUpload, originalname } = req.files;
+  const { path: tempUpload, originalname } = req.file;
   const filename = `${id}_${originalname}`;
   const resultUpload = path.join(avatarsDir, filename);
   await fs.rename(tempUpload, resultUpload);
