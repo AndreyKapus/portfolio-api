@@ -9,7 +9,6 @@ mongoose
   .connect(DB_HOST)
   .then(() => {
     app.listen(PORT);
-    console.log("started at localhost 3001");
   })
   .catch((error) => {
     console.log(error.message);
