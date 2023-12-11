@@ -3,10 +3,6 @@ const { handleMongooseError } = require("../helpers");
 
 const projectSchema = new Schema(
   {
-    img: {
-      type: String,
-      required: true,
-    },
     name: {
       type: String,
       required: true,
