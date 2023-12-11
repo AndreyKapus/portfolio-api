@@ -3,7 +3,6 @@ const path = require("path");
 const fs = require("fs/promises");
 const { v4 } = require("uuid");
 const { HttpError, ctrlWrapper } = require("../helpers");
-const gravatar = require("gravatar");
 
 const avatarsDir = path.join(__dirname, "../", "public", "avatars");
 
